@@ -28,7 +28,7 @@
         src: roboshop.conf
         dest: /etc/nginx/default.d/roboshop.conf
     
-    - name: Start service httpd, if not started
+    - name: Start nginx service 
       ansible.builtin.service:
         name: nginx
         state: started
