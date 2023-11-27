@@ -1,0 +1,21 @@
+- name: Configuring NodeJS Repos
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install NodeJS
+  ansible.builtin.yum:
+    name: nodejs  
+    state: latest
+
+- name: Include task list in play
+  ansible.builtin.import_tasks:
+    file: app_presetup.yaml
+
+- name: Install NodeJS Dependencies
+  ansible.builtin.shell: npm install
+  args:
+    chdir: /app
+
+- name: Include task list in play
+  ansible.builtin.import_tasks:
+    file: systemd_setup.yaml
+ 
