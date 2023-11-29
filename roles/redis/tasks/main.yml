@@ -1,25 +1,31 @@
 - name: Install Redis Repos 
-  ansible.builtin.shell: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-
-- name : Enable Redis 6 Version
   ansible.builtin.yum:
-    name: redis:remi-6.2
-    state: present
+    name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    state: installed 
+    disable_gpg_check: true
 
+- name: Enable Redis 6 Version
+  ansible.builtin.shell: yum module enable redis:remi-6.2
+    
+- name: Install Redis
+  ansible.builtin.dnf: redis
+    name: redis
+    state: installed
 
-# echo -e " ${color}  Enable Redis 6 Version  ${nocolor} "
-# yum module enable redis:remi-6.2 -y &>>/tmp/roboshop.log
-# stat_check $?
+- name : Update radis Listen Address -/etc/redis.conf
+  ansible.builtin.replace:
+    path: /etc/redis.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
 
-# echo -e " ${color}  Install Redis  ${nocolor} "
-# yum install redis -y &>>/tmp/roboshop.log
-# stat_check $?
-
-# echo -e " ${color}  Update Redis Listen address  ${nocolor} "
-# sed -i 's/127.0.0.1/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf &>>/tmp/roboshop.log
-# stat_check $?
-
-# echo -e " ${color}  Start Redis Service  ${nocolor} "
-# systemctl enable redis  &>>/tmp/roboshop.log
-# systemctl restart redis  &>>/tmp/roboshop.log
-# stat_check $?
+- name : Update MongoDB Listen Address -/etc/redis/redis.conf
+  ansible.builtin.replace:
+    path: /etc/redis/redis.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+    
+- name:  Start Redis Service 
+  ansible.builtin.service:
+    name: redis
+    state: restarted
+    enabled: yes 
