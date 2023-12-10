@@ -8,7 +8,7 @@
 
 - name: App presetup
   ansible.builtin.import_tasks:
-    file: app_presetup.yaml
+    file: app_presetup.yml
 
 - name: Install Application Dependencies
   ansible.builtin.shell: pip3.6 install -r requirements.txt
@@ -17,4 +17,4 @@
 
 - name: Include task list in play
   ansible.builtin.import_tasks:
-    file: systemd_setup.yaml
+    file: systemd_setup.yml

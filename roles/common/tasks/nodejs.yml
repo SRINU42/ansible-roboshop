@@ -8,7 +8,7 @@
 
 - name: Include task list in play
   ansible.builtin.import_tasks:
-    file: app_presetup.yaml
+    file: app_presetup.yml
 
 - name: Install NodeJS Dependencies
   ansible.builtin.shell: npm install
@@ -17,5 +17,5 @@
 
 - name: Include task list in play
   ansible.builtin.import_tasks:
-    file: systemd_setup.yaml
+    file: systemd_setup.yml
  
