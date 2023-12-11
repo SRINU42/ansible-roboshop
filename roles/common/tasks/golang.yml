@@ -14,7 +14,7 @@
 # go build &>>${log_file}
 - name: Download Init {{ component }}
   ansible.builtin.shell: go mod init {{ component }} ; go get ; go build
-   args:
+  args:
     chdir: /app
 
 # echo -e "${color} Start System service ${nocolor}"

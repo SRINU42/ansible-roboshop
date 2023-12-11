@@ -12,7 +12,7 @@
 
 - name: Install Application Dependencies
   ansible.builtin.shell: pip3.6 install -r requirements.txt
-   args:
+  args:
     chdir: /app
 
 - name: Include task list in play
