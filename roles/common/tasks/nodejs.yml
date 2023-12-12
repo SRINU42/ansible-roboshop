@@ -18,4 +18,3 @@
 - name: Include task list in play
   ansible.builtin.import_tasks:
     file: systemd_setup.yml
- 
